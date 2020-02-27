@@ -48,6 +48,16 @@ export class Replayer {
     this.replayer.reset();
     return history;
   }
+  
+  public async getHistory(): Promise<History> {
+    if (!this.ready) {
+      await this.start();
+    }
+    await sleep(this.timeout);
+    const history = this.replayer.getHistory();
+    this.replayer.reset();
+    return history;
+  }
 
   public shutdown(): void {
     this.replayer.server.close();
